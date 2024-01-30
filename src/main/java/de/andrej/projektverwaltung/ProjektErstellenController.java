@@ -192,7 +192,7 @@ public class ProjektErstellenController implements Initializable {
                 }
 
 
-                // Leere die Eingabefelder
+                // Leere die Eingabefelder um zu signalisieren, dass das Projekt gespeichert worden ist
                 projektNummer_textField.clear();
                 projektBezeichnung_Textfield.clear();
                 cB_LP1.setSelected(false);
