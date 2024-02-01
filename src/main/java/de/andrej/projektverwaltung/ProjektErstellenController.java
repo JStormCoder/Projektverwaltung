@@ -1,5 +1,6 @@
 package de.andrej.projektverwaltung;
 
+import de.andrej.database.DB_Projektbank;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -10,9 +11,13 @@ import javafx.scene.control.cell.TreeItemPropertyValueFactory;
 import javafx.util.Callback;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class ProjektErstellenController implements Initializable {
+
+    private ProjektebankModel projekteModel = new ProjektebankModel();
+    private DB_Projektbank database = new DB_Projektbank();
 
     @FXML
     private TextField projektNummer_textField;
@@ -76,7 +81,20 @@ public class ProjektErstellenController implements Initializable {
 
     private TreeItem<Projekte> rootItem;
 
+    public void createProject() throws SQLException {
+        String nummer = projektNummer_textField.getText();
+        String bezeichnung = projektBezeichnung_Textfield.getText();
+        String lp1 = cB_LP1.getText();
+        String lp2 = cB_LP2.getText();
+        String lp3 = cB_LP3.getText();
+        String lp4 = cB_LP4.getText();
+        String lp5 = cB_LP5.getText();
+        String lp6 = cB_LP6.getText();
 
+        projekteModel.createProjekt(database.getStatement(), nummer, bezeichnung, lp1, lp2, lp3, lp4, lp5, lp6);
+
+
+    }
 
 
     @Override
