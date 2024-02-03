@@ -1,14 +1,12 @@
 package de.andrej.projektverwaltung;
 
-import de.andrej.database.DB_Projektbank;
-import javafx.beans.value.ObservableValue;
+import de.andrej.database.Database;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
-import javafx.util.Callback;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -16,8 +14,9 @@ import java.util.ResourceBundle;
 
 public class ProjektErstellenController implements Initializable {
 
-    private ProjektebankModel projekteModel = new ProjektebankModel();
-    private DB_Projektbank database = new DB_Projektbank();
+
+    private final ProjektebankModel projekteModel = new ProjektebankModel();
+    private final Database database = new Database();
 
     @FXML
     private TextField projektNummer_textField;
@@ -81,37 +80,72 @@ public class ProjektErstellenController implements Initializable {
 
     private TreeItem<Projekte> rootItem;
 
-    public void createProject() throws SQLException {
+
+    //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    public void createProject() {
         String nummer = projektNummer_textField.getText();
         String bezeichnung = projektBezeichnung_Textfield.getText();
-        String lp1 = cB_LP1.getText();
-        String lp2 = cB_LP2.getText();
-        String lp3 = cB_LP3.getText();
-        String lp4 = cB_LP4.getText();
-        String lp5 = cB_LP5.getText();
-        String lp6 = cB_LP6.getText();
 
-        projekteModel.createProjekt(database.getStatement(), nummer, bezeichnung);
+        String lp1 = null;
+        String lp2 = null;
+        String lp3 = null;
+        String lp4 = null;
+        String lp5 = null;
+        String lp6 = null;
 
+        if (cB_LP1.isSelected()) {
+            lp1 = cB_LP1.getText();
+        }
+        if (cB_LP2.isSelected()) {
+            lp2 = cB_LP2.getText();
+        }
+        if (cB_LP3.isSelected()) {
+            lp3 = cB_LP3.getText();
+        }
+        if (cB_LP4.isSelected()) {
+            lp4 = cB_LP4.getText();
+        }
+        if (cB_LP5.isSelected()) {
+            lp5 = cB_LP5.getText();
+        }
+        if (cB_LP6.isSelected()) {
+            lp6 = cB_LP6.getText();
+        }
 
+        try {
+            projekteModel.createProjekt(database.getStatement2(), nummer, bezeichnung, lp1, lp2, lp3, lp4, lp5, lp6);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
+    //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-
+    //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        boolean dbConnection = database.openProjektebank();
+
+        if (dbConnection) {
+            System.out.println("Verbindung zur Datenbank vorhanden");
+        } else {
+            System.out.println("Keine Verbindung");
+        }
+
         rootItem = new TreeItem<>(new Projekte("Daten", ""));
         treeTableView.setRoot(rootItem);
 
         treeTableView.setShowRoot(false);
 
         projekt_column.setCellValueFactory(new TreeItemPropertyValueFactory<>("CombinedValue"));    //Der angegebene Name hier muss mit der Klasse "Projekte" ung get übereinstimmen
-        stand_column.setCellValueFactory(new TreeItemPropertyValueFactory<>("Status"));
+//        stand_column.setCellValueFactory(new TreeItemPropertyValueFactory<>("Status"));
 
 
         speichern();
 
     }
+    //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
+    //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     @FXML
     private void speichern() {
         button_Speichern.setOnAction(new EventHandler<ActionEvent>() {
@@ -210,11 +244,7 @@ public class ProjektErstellenController implements Initializable {
                     newProjektItem.getChildren().add(zL6);
                 }
 
-                try {
-                    createProject();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
+                createProject();
 
 
                 // Leere die Eingabefelder um zu signalisieren, dass das Projekt gespeichert worden ist
@@ -235,6 +265,13 @@ public class ProjektErstellenController implements Initializable {
 
             }
         });
+
+
     }
+    //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+
+
+
 }
 
