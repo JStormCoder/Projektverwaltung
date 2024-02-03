@@ -91,7 +91,7 @@ public class ProjektErstellenController implements Initializable {
         String lp5 = cB_LP5.getText();
         String lp6 = cB_LP6.getText();
 
-        projekteModel.createProjekt(database.getStatement(), nummer, bezeichnung, lp1, lp2, lp3, lp4, lp5, lp6);
+        projekteModel.createProjekt(database.getStatement(), nummer, bezeichnung);
 
 
     }
@@ -106,6 +106,7 @@ public class ProjektErstellenController implements Initializable {
 
         projekt_column.setCellValueFactory(new TreeItemPropertyValueFactory<>("CombinedValue"));    //Der angegebene Name hier muss mit der Klasse "Projekte" ung get übereinstimmen
         stand_column.setCellValueFactory(new TreeItemPropertyValueFactory<>("Status"));
+
 
         speichern();
 
@@ -207,6 +208,12 @@ public class ProjektErstellenController implements Initializable {
                     Projekte neueZusLeistung6 = new Projekte(zusLeistung6, "");
                     TreeItem<Projekte> zL6 = new TreeItem<>(neueZusLeistung6);
                     newProjektItem.getChildren().add(zL6);
+                }
+
+                try {
+                    createProject();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
                 }
 
 
