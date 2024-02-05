@@ -46,7 +46,7 @@ public class Database {
     public boolean openProjektebank() {
         try {
             connection2 = DriverManager.getConnection(CONNECTION_STRING2);
-            statement = connection2.createStatement();
+            statement2 = connection2.createStatement();
             return true;
         } catch (SQLException e) {
             return false;
