@@ -10,13 +10,15 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="733.0" prefWidth="1065.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.andrej.projektverwaltung.ProjektErstellenController">
+<AnchorPane prefHeight="733.0" prefWidth="1048.0" xmlns="http://javafx.com/javafx/8.0.171"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.andrej.projektverwaltung.ProjektErstellenController">
    <children>
       <HBox layoutX="277.0" layoutY="170.0" prefHeight="100.0" prefWidth="200.0" spacing="10.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
          <children>
-            <VBox prefHeight="723.0" prefWidth="400.0" spacing="10.0">
+            <VBox prefHeight="627.0" prefWidth="400.0" spacing="10.0">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
@@ -196,6 +198,16 @@
                      <padding>
                         <Insets bottom="5.0" top="5.0" />
                      </padding>
+                  </HBox>
+                  <HBox alignment="BOTTOM_LEFT" prefHeight="292.0" prefWidth="390.0" spacing="20.0">
+                     <children>
+                        <Label contentDisplay="BOTTOM" text="Connection:">
+                           <font>
+                              <Font name="Arial Italic" size="10.0"/>
+                           </font>
+                        </Label>
+                        <Circle fx:id="connectionView" fill="#ff1f1f" radius="5.0" stroke="BLACK" strokeType="INSIDE"/>
+                     </children>
                   </HBox>
                </children>
             </VBox>

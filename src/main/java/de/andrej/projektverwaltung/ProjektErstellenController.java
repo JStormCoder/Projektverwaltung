@@ -7,6 +7,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.TreeItemPropertyValueFactory;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -77,8 +79,11 @@ public class ProjektErstellenController implements Initializable {
 
     @FXML
     private TreeTableColumn<Status, String> stand_column;
+    @FXML
+    private Circle connectionView;
 
     private TreeItem<Projekte> rootItem;
+    private final String status = "0%";
 
 
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -127,17 +132,19 @@ public class ProjektErstellenController implements Initializable {
 
         if (dbConnection) {
             System.out.println("Verbindung zur Datenbank vorhanden");
+            connectionView.setFill(Color.GREEN);
         } else {
             System.out.println("Keine Verbindung");
+            connectionView.setFill(Color.RED);
         }
 
-        rootItem = new TreeItem<>(new Projekte("Daten", ""));
+        rootItem = new TreeItem<>(new Projekte("Daten", "", ""));
         treeTableView.setRoot(rootItem);
 
         treeTableView.setShowRoot(false);
 
         projekt_column.setCellValueFactory(new TreeItemPropertyValueFactory<>("CombinedValue"));    //Der angegebene Name hier muss mit der Klasse "Projekte" ung get übereinstimmen
-//        stand_column.setCellValueFactory(new TreeItemPropertyValueFactory<>("Status"));
+        stand_column.setCellValueFactory(new TreeItemPropertyValueFactory<>("Status"));
 
 
         speichern();
@@ -155,7 +162,7 @@ public class ProjektErstellenController implements Initializable {
                 String nummer = projektNummer_textField.getText();
                 String name = projektBezeichnung_Textfield.getText();
 
-                Projekte neuesProjekt = new Projekte(nummer, name);
+                Projekte neuesProjekt = new Projekte(nummer, name, "");
                 TreeItem<Projekte> newProjektItem = new TreeItem<>(neuesProjekt);
 
                 // Füge das neue Projekt-Item zur Wurzel der TreeTableView hinzu
@@ -165,42 +172,42 @@ public class ProjektErstellenController implements Initializable {
                 // ausgewählte Checkboxen in die TreeTableView einfügen
                 if (cB_LP1.isSelected()) {
                     String leistung1 = cB_LP1.getText();
-                    Projekte neueLeistung1 = new Projekte(leistung1, "");
+                    Projekte neueLeistung1 = new Projekte(leistung1, "", status);
                     Status statusLP1 = new Status("0 %");
                     TreeItem<Projekte> leistungLP1 = new TreeItem<>(neueLeistung1);
                     newProjektItem.getChildren().add(leistungLP1);
                 }
                 if (cB_LP2.isSelected()) {
                     String leistung2 = cB_LP2.getText();
-                    Projekte neueLeistung2 = new Projekte(leistung2, "");
+                    Projekte neueLeistung2 = new Projekte(leistung2, "", status);
                     Status statusLP2 = new Status("0 %");
                     TreeItem<Projekte> leistungLP2 = new TreeItem<>(neueLeistung2);
                     newProjektItem.getChildren().add(leistungLP2);
                 }
                 if (cB_LP3.isSelected()) {
                     String leistung3 = cB_LP3.getText();
-                    Projekte neueLeistung3 = new Projekte(leistung3, "");
+                    Projekte neueLeistung3 = new Projekte(leistung3, "", status);
                     Status statusLP3 = new Status("0 %");
                     TreeItem<Projekte> leistungLP3 = new TreeItem<>(neueLeistung3);
                     newProjektItem.getChildren().add(leistungLP3);
                 }
                 if (cB_LP4.isSelected()) {
                     String leistung4 = cB_LP4.getText();
-                    Projekte neueLeistung4 = new Projekte(leistung4, "");
+                    Projekte neueLeistung4 = new Projekte(leistung4, "", status);
                     Status statusLP4 = new Status("0 %");
                     TreeItem<Projekte> leistungLP4 = new TreeItem<>(neueLeistung4);
                     newProjektItem.getChildren().add(leistungLP4);
                 }
                 if (cB_LP5.isSelected()) {
                     String leistung5 = cB_LP5.getText();
-                    Projekte neueLeistung5 = new Projekte(leistung5, "");
+                    Projekte neueLeistung5 = new Projekte(leistung5, "", status);
                     Status statusLP5 = new Status("0 %");
                     TreeItem<Projekte> leistungLP5 = new TreeItem<>(neueLeistung5);
                     newProjektItem.getChildren().add(leistungLP5);
                 }
                 if (cB_LP6.isSelected()) {
                     String leistung6 = cB_LP6.getText();
-                    Projekte neueLeistung6 = new Projekte(leistung6, "");
+                    Projekte neueLeistung6 = new Projekte(leistung6, "", status);
                     Status statusLP6 = new Status("0 %");
                     TreeItem<Projekte> leistungLP6 = new TreeItem<>(neueLeistung6);
                     newProjektItem.getChildren().add(leistungLP6);
@@ -209,37 +216,37 @@ public class ProjektErstellenController implements Initializable {
                 // zusätzliche Leistungen in die TreeTableView einfügen
                 if (!zusLeistung_Textfield_1.getText().isEmpty()) {
                     String zusLeistung1 = zusLeistung_Textfield_1.getText();
-                    Projekte neueZusLeistung1 = new Projekte(zusLeistung1, "");
+                    Projekte neueZusLeistung1 = new Projekte(zusLeistung1, "", status);
                     TreeItem<Projekte> zL1 = new TreeItem<>(neueZusLeistung1);
                     newProjektItem.getChildren().add(zL1);
                 }
                 if (!zusLeistung_Textfield_2.getText().isEmpty()) {
                     String zusLeistung2 = zusLeistung_Textfield_2.getText();
-                    Projekte neueZusLeistung2 = new Projekte(zusLeistung2, "");
+                    Projekte neueZusLeistung2 = new Projekte(zusLeistung2, "", status);
                     TreeItem<Projekte> zL2 = new TreeItem<>(neueZusLeistung2);
                     newProjektItem.getChildren().add(zL2);
                 }
                 if (!zusLeistung_Textfield_3.getText().isEmpty()) {
                     String zusLeistung3 = zusLeistung_Textfield_3.getText();
-                    Projekte neueZusLeistung3 = new Projekte(zusLeistung3, "");
+                    Projekte neueZusLeistung3 = new Projekte(zusLeistung3, "", status);
                     TreeItem<Projekte> zL3 = new TreeItem<>(neueZusLeistung3);
                     newProjektItem.getChildren().add(zL3);
                 }
                 if (!zusLeistung_Textfield_4.getText().isEmpty()) {
                     String zusLeistung4 = zusLeistung_Textfield_4.getText();
-                    Projekte neueZusLeistung4 = new Projekte(zusLeistung4, "");
+                    Projekte neueZusLeistung4 = new Projekte(zusLeistung4, "", status);
                     TreeItem<Projekte> zL4 = new TreeItem<>(neueZusLeistung4);
                     newProjektItem.getChildren().add(zL4);
                 }
                 if (!zusLeistung_Textfield_5.getText().isEmpty()) {
                     String zusLeistung5 = zusLeistung_Textfield_5.getText();
-                    Projekte neueZusLeistung5 = new Projekte(zusLeistung5, "");
+                    Projekte neueZusLeistung5 = new Projekte(zusLeistung5, "", status);
                     TreeItem<Projekte> zL5 = new TreeItem<>(neueZusLeistung5);
                     newProjektItem.getChildren().add(zL5);
                 }
                 if (!zusLeistung_Textfield_6.getText().isEmpty()) {
                     String zusLeistung6 = zusLeistung_Textfield_6.getText();
-                    Projekte neueZusLeistung6 = new Projekte(zusLeistung6, "");
+                    Projekte neueZusLeistung6 = new Projekte(zusLeistung6, "", status);
                     TreeItem<Projekte> zL6 = new TreeItem<>(neueZusLeistung6);
                     newProjektItem.getChildren().add(zL6);
                 }
@@ -269,8 +276,6 @@ public class ProjektErstellenController implements Initializable {
 
     }
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
-
 
 
 }
