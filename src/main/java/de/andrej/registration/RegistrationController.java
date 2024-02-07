@@ -11,7 +11,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
@@ -24,8 +23,8 @@ import java.util.ResourceBundle;
 public class RegistrationController implements Initializable {
 
     //Variablen
-    private RegistrationModel registrationModel = new RegistrationModel();
-    private Database database = new Database();
+    private final RegistrationModel registrationModel = new RegistrationModel();
+    private final Database database = new Database();
 
     //Tabelle
     private ObservableList<Account> accounts;
@@ -92,13 +91,24 @@ public class RegistrationController implements Initializable {
         String password = passwordTextField.getText();
         String passwordRepeat = pwWiederholenTextField.getText();
 
-        try {
-            registrationModel.createAccount(database.getStatement(), name, vorname, email, username, password, passwordRepeat);
-        } catch (SQLException e) {
-            e.printStackTrace();
+        if (!password.equals(passwordRepeat)) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Die eingegebenen Passwörter stimmen nicht überein");
+            alert.show();
+            pwWiederholenTextField.requestFocus();
+            pwWiederholenTextField.selectAll();
+        } else {
+            try {
+                registrationModel.createAccount(database.getStatement(), name, vorname, email, username, password, passwordRepeat);
+                Alert massage = new Alert(Alert.AlertType.INFORMATION);
+                massage.setContentText("Sie haben sich erfolgreich registriert");
+                massage.show();
+                clearAll();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            backToLogin();
         }
-        clearAll();
-
     }
 
     // Accounts laden
@@ -134,11 +144,14 @@ public class RegistrationController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        accountTableView.setDisable(true);
+        accountTableView.setVisible(false);
         boolean dbConnection = database.open();
 
         if (dbConnection) {
             registrationStatus.setFill(Color.GREEN);
             loadAccount();
+
         } else {
             registrationStatus.setFill(Color.RED);
         }
@@ -152,6 +165,20 @@ public class RegistrationController implements Initializable {
         usernameTextField.clear();
         passwordTextField.clear();
         pwWiederholenTextField.clear();
+
+    }
+
+    public void backToLogin() {
+        FXMLLoader loader = new FXMLLoader(Login.class.getResource("login.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Stage stage = (Stage) cancelButton.getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
 
     }
 
