@@ -150,7 +150,6 @@ public class LoginController implements Initializable {
 
         try {
             Stage stage = new Stage();
-            FXMLLoader loader = new FXMLLoader();
 
             Parent root = FXMLLoader.load(getClass().getResource("projekterstellen.fxml"));
 
