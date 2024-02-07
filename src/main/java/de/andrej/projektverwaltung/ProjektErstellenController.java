@@ -118,7 +118,7 @@ public class ProjektErstellenController implements Initializable {
         }
 
         try {
-            projekteModel.createProjekt(database.getStatement2(), nummer, bezeichnung, lp1, lp2, lp3, lp4, lp5, lp6);
+            projekteModel.createProjekt(database.getStatement(), nummer, bezeichnung, lp1, lp2, lp3, lp4, lp5, lp6);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -128,7 +128,7 @@ public class ProjektErstellenController implements Initializable {
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        boolean dbConnection = database.openProjektebank();
+        boolean dbConnection = database.open();
 
         if (dbConnection) {
             System.out.println("Verbindung zur Datenbank vorhanden");
@@ -164,6 +164,7 @@ public class ProjektErstellenController implements Initializable {
 
                 Projekte neuesProjekt = new Projekte(nummer, name, "");
                 TreeItem<Projekte> newProjektItem = new TreeItem<>(neuesProjekt);
+                newProjektItem.setExpanded(true);
 
                 // Füge das neue Projekt-Item zur Wurzel der TreeTableView hinzu
                 rootItem.getChildren().add(newProjektItem);

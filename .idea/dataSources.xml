@@ -8,7 +8,7 @@
       <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/projektverwaltung.sqlite</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="Projektebank.sqlite" uuid="7039b26d-afe5-474e-8703-8c6713bf6d2e">
+    <data-source source="LOCAL" name="Projektebank.sqlite" uuid="5f63ecda-fd3f-4699-8bb6-69af654feba7">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
