@@ -91,30 +91,30 @@ public class ProjektErstellenController implements Initializable {
         String nummer = projektNummer_textField.getText();
         String bezeichnung = projektBezeichnung_Textfield.getText();
 
-        String lp1 = null;
-        String lp2 = null;
-        String lp3 = null;
-        String lp4 = null;
-        String lp5 = null;
-        String lp6 = null;
+        String lp1 = "";
+        String lp2 = "";
+        String lp3 = "";
+        String lp4 = "";
+        String lp5 = "";
+        String lp6 = "";
 
         if (cB_LP1.isSelected()) {
-            lp1 = cB_LP1.getText();
+            lp1 = "X";
         }
         if (cB_LP2.isSelected()) {
-            lp2 = cB_LP2.getText();
+            lp2 = "X";
         }
         if (cB_LP3.isSelected()) {
-            lp3 = cB_LP3.getText();
+            lp3 = "X";
         }
         if (cB_LP4.isSelected()) {
-            lp4 = cB_LP4.getText();
+            lp4 = "X";
         }
         if (cB_LP5.isSelected()) {
-            lp5 = cB_LP5.getText();
+            lp5 = "X";
         }
         if (cB_LP6.isSelected()) {
-            lp6 = cB_LP6.getText();
+            lp6 = "X";
         }
 
         try {
