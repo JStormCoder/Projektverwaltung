@@ -1,6 +1,7 @@
 package de.andrej.projektverwaltung;
 
 import de.andrej.database.Database;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -85,6 +86,8 @@ public class ProjektErstellenController implements Initializable {
     private TreeItem<Projekte> rootItem;
     private final String status = "0%";
 
+    private ObservableList<Projekte> vorhandeneProjekte;
+
 
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     public void createProject() {
@@ -129,6 +132,7 @@ public class ProjektErstellenController implements Initializable {
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         boolean dbConnection = database.open();
 
         if (dbConnection) {
@@ -143,6 +147,7 @@ public class ProjektErstellenController implements Initializable {
         treeTableView.setRoot(rootItem);
 
         treeTableView.setShowRoot(false);
+        loadProjekt();
 
         projekt_column.setCellValueFactory(new TreeItemPropertyValueFactory<>("CombinedValue"));    //Der angegebene Name hier muss mit der Klasse "Projekte" ung get übereinstimmen
         stand_column.setCellValueFactory(new TreeItemPropertyValueFactory<>("Status"));
@@ -275,10 +280,23 @@ public class ProjektErstellenController implements Initializable {
 
             }
         });
+    }
+    //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+    public void loadProjekt() {
+        try {
+            vorhandeneProjekte = projekteModel.loadProject(database.getStatement(), vorhandeneProjekte);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        projekt_column.setCellValueFactory(new TreeItemPropertyValueFactory<Projekte, String>("CombinedValue"));
+
+        System.out.println(vorhandeneProjekte);
 
 
     }
-    //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 
 }
