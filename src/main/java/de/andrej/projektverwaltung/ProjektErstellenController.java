@@ -293,7 +293,10 @@ public class ProjektErstellenController implements Initializable {
 
         projekt_column.setCellValueFactory(new TreeItemPropertyValueFactory<Projekte, String>("CombinedValue"));
 
-        System.out.println(vorhandeneProjekte);
+        Projekte prj = new Projekte(vorhandeneProjekte.toString(), "", "");
+        TreeItem<Projekte> alleProjekte = new TreeItem<>(prj);
+
+        rootItem.getChildren().add((alleProjekte));
 
 
     }
