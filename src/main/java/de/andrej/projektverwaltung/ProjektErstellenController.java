@@ -294,6 +294,8 @@ public class ProjektErstellenController implements Initializable {
         projekt_column.setCellValueFactory(new TreeItemPropertyValueFactory<Projekte, String>("CombinedValue"));
 
 for (String data: vorhandeneProjekte){
+    //Hier soll dann die Ausgabe rein geschrieben werden
+}
 
 
         Projekte prj = new Projekte(vorhandeneProjekte.get(), "", "");
