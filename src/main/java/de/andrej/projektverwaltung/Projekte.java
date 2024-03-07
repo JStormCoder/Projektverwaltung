@@ -2,8 +2,9 @@ package de.andrej.projektverwaltung;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.scene.control.TreeItem;
 
-public class Projekte {
+public class Projekte extends TreeItem<Projekte> {
     private final StringProperty nummerProperty = new SimpleStringProperty();
     private final StringProperty nameProperty = new SimpleStringProperty();
     private final StringProperty statusProperty = new SimpleStringProperty();
