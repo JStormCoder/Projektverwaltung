@@ -286,6 +286,7 @@ public class ProjektErstellenController implements Initializable {
     public void loadProjekt() {
         try {
             vorhandeneProjekte = projekteModel.loadProject(database.getStatement(), vorhandeneProjekte);
+//            leistung1 = projekteModel.loadLP1(database.getStatement(), leistung1);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -296,12 +297,25 @@ public class ProjektErstellenController implements Initializable {
         for (Projekte data : vorhandeneProjekte) {
             Projekte prj = new Projekte(data.getCombinedValue(), "", "");
             TreeItem<Projekte> alleProjekte = new TreeItem<>(prj);
-            rootItem.getChildren().add((alleProjekte));
+
+            String test = data.getCombinedValue();
+            if (vorhandeneProjekte.toString() == "LP 1" || vorhandeneProjekte.toString() == "X") {
+
+//                Projekte lp1 = new Projekte(data.getCombinedValue(), "", "");
+//                TreeItem<Projekte> leistung1 = new TreeItem<>(lp1);
+                System.out.println("Der Wert liegt vor");
+                //                alleProjekte.getChildren().add(leistung1);
+            } else {
+                System.out.println("Der Wert liegt nicht vor");
+            }
+            System.out.println(data.getCombinedValue());
+
+            rootItem.getChildren().add(alleProjekte);
+
         }
-
-
     }
-
-
 }
+
+
+
 
