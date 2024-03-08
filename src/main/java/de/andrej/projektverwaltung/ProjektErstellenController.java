@@ -102,22 +102,22 @@ public class ProjektErstellenController implements Initializable {
         String lp6 = "";
 
         if (cB_LP1.isSelected()) {
-            lp1 = "X";
+            lp1 = "LP1";
         }
         if (cB_LP2.isSelected()) {
-            lp2 = "X";
+            lp2 = "LP2";
         }
         if (cB_LP3.isSelected()) {
-            lp3 = "X";
+            lp3 = "LP3";
         }
         if (cB_LP4.isSelected()) {
-            lp4 = "X";
+            lp4 = "LP4";
         }
         if (cB_LP5.isSelected()) {
-            lp5 = "X";
+            lp5 = "LP5";
         }
         if (cB_LP6.isSelected()) {
-            lp6 = "X";
+            lp6 = "LP6";
         }
 
         try {
@@ -295,22 +295,19 @@ public class ProjektErstellenController implements Initializable {
         projekt_column.setCellValueFactory(new TreeItemPropertyValueFactory<Projekte, String>("CombinedValue"));
 
         for (Projekte data : vorhandeneProjekte) {
-            Projekte prj = new Projekte(data.getCombinedValue(), "", "");
-            TreeItem<Projekte> alleProjekte = new TreeItem<>(prj);
+            Projekte prj;
+            TreeItem<Projekte> alleProjekte = new TreeItem<>();
 
-            String test = data.getCombinedValue();
-            if (vorhandeneProjekte.toString() == "LP 1" || vorhandeneProjekte.toString() == "X") {
-
-//                Projekte lp1 = new Projekte(data.getCombinedValue(), "", "");
-//                TreeItem<Projekte> leistung1 = new TreeItem<>(lp1);
-                System.out.println("Der Wert liegt vor");
-                //                alleProjekte.getChildren().add(leistung1);
-            } else {
-                System.out.println("Der Wert liegt nicht vor");
+            if (!data.getCombinedValue().contains("LP1")) {
+                prj = new Projekte(data.getCombinedValue(), "", "");
+                alleProjekte = new TreeItem<>(prj);
+            } else if (data.getCombinedValue().contains("LP1")) {
+                Projekte lp1 = new Projekte(data.getCombinedValue(), "", "");
+                TreeItem<Projekte> leistung1 = new TreeItem<>(lp1);
+                alleProjekte.getChildren().add(leistung1);
             }
-            System.out.println(data.getCombinedValue());
-
             rootItem.getChildren().add(alleProjekte);
+
 
         }
     }
