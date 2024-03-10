@@ -294,18 +294,27 @@ public class ProjektErstellenController implements Initializable {
 
         projekt_column.setCellValueFactory(new TreeItemPropertyValueFactory<Projekte, String>("CombinedValue"));
 
+        TreeItem<Projekte> mainProject = new TreeItem<>();
+
         for (Projekte data : vorhandeneProjekte) {
 
-            System.out.println(data.getCombinedValue());
+            System.out.println("<" + data.getCombinedValue() + ">");
 
-            TreeItem<Projekte> alleProjekte = new TreeItem<>(data);
-
-            if (data.getCombinedValue() == "LP1") {
-                TreeItem<Projekte> leistung1 = new TreeItem<>(data);
-                alleProjekte.getChildren().add(leistung1);
+            String kombiValue = data.getCombinedValue().trim();
+            if (kombiValue.isEmpty() || kombiValue.equals("null")) {
+                continue;
             }
 
-            rootItem.getChildren().add(alleProjekte);
+            if (!data.getCombinedValue().trim().equals("LP1")) {
+                System.out.println("Add MainProject: " + data.getCombinedValue());
+                mainProject = new TreeItem<>(data);
+                rootItem.getChildren().add(mainProject);
+//                    continue;
+            } else {
+                TreeItem<Projekte> subProject = new TreeItem<>(data);
+                mainProject.getChildren().add(subProject);
+                System.out.println("Add SubProject: " + data.getCombinedValue());
+            }
 
 
         }
