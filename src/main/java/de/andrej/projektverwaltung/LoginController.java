@@ -134,6 +134,17 @@ public class LoginController implements Initializable {
             e.printStackTrace();
         }
     }
+
+//    void oeffneProjekte() {
+//        okButton.setOnKeyPressed(new EventHandler<KeyEvent>() {
+//            @Override
+//            public void handle(KeyEvent event) {
+//                if (event.getCode() == KeyEvent.VK_ENTER) {
+//
+//                }
+//            }
+//        });
+//    }
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 
