@@ -3,6 +3,7 @@ package de.andrej.projektverwaltung;
 import de.andrej.database.Database;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -11,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -135,16 +137,26 @@ public class LoginController implements Initializable {
         }
     }
 
-//    void oeffneProjekte() {
-//        okButton.setOnKeyPressed(new EventHandler<KeyEvent>() {
-//            @Override
-//            public void handle(KeyEvent event) {
-//                if (event.getCode() == KeyEvent.VK_ENTER) {
-//
-//                }
-//            }
-//        });
-//    }
+    @FXML
+    void oeffneProjekteUeberEnter() {
+        passwordTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                try {
+                    if (event.getCode() == KeyCode.ENTER) {
+                        Stage stage = (Stage) okButton.getScene().getWindow();
+                        stage.close();
+
+                        successLogin();
+                    }
+                } catch (RuntimeException e) {
+                    throw new RuntimeException(e);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+    }
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 
