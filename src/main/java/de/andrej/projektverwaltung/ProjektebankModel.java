@@ -33,26 +33,32 @@ public class ProjektebankModel {
 
         while (resultSet.next()) {
 
+            String status = "0%";
 
             String nummer = resultSet.getString(1);
             String name = resultSet.getString(2);
             String projekt = nummer + "\t" + name;
-
             Projekte mainProjekt = new Projekte(projekt, "", "");
 
-
             String lp1 = resultSet.getString(3);
-            Projekte leistung1 = new Projekte(lp1, "", "");
+            Projekte leistung1 = new Projekte(lp1, "", status);
 
+            String lp2 = resultSet.getString(4);
+            Projekte leistung2 = new Projekte(lp2, "", status);
 
-//            String lp2 = resultSet.getNString(4);
-//            String lp3 = resultSet.getNString(5);
-//            String lp4 = resultSet.getNString(6);
-//            String lp5 = resultSet.getNString(7);
-//            String lp6 = resultSet.getNString(8);
+            String lp3 = resultSet.getString(5);
+            Projekte leistung3 = new Projekte(lp3, "", status);
 
+            String lp4 = resultSet.getString(6);
+            Projekte leistung4 = new Projekte(lp4, "", status);
 
-            list.addAll(mainProjekt, leistung1);
+            String lp5 = resultSet.getString(7);
+            Projekte leistung5 = new Projekte(lp5, "", status);
+
+            String lp6 = resultSet.getString(8);
+            Projekte leistung6 = new Projekte(lp6, "", status);
+
+            list.addAll(mainProjekt, leistung1, leistung2, leistung3, leistung4, leistung5, leistung6);
         }
         statement.close();
 

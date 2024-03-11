@@ -181,42 +181,36 @@ public class ProjektErstellenController implements Initializable {
                 if (cB_LP1.isSelected()) {
                     String leistung1 = cB_LP1.getText();
                     Projekte neueLeistung1 = new Projekte(leistung1, "", status);
-                    Status statusLP1 = new Status("0 %");
                     TreeItem<Projekte> leistungLP1 = new TreeItem<>(neueLeistung1);
                     newProjektItem.getChildren().add(leistungLP1);
                 }
                 if (cB_LP2.isSelected()) {
                     String leistung2 = cB_LP2.getText();
                     Projekte neueLeistung2 = new Projekte(leistung2, "", status);
-                    Status statusLP2 = new Status("0 %");
                     TreeItem<Projekte> leistungLP2 = new TreeItem<>(neueLeistung2);
                     newProjektItem.getChildren().add(leistungLP2);
                 }
                 if (cB_LP3.isSelected()) {
                     String leistung3 = cB_LP3.getText();
                     Projekte neueLeistung3 = new Projekte(leistung3, "", status);
-                    Status statusLP3 = new Status("0 %");
                     TreeItem<Projekte> leistungLP3 = new TreeItem<>(neueLeistung3);
                     newProjektItem.getChildren().add(leistungLP3);
                 }
                 if (cB_LP4.isSelected()) {
                     String leistung4 = cB_LP4.getText();
                     Projekte neueLeistung4 = new Projekte(leistung4, "", status);
-                    Status statusLP4 = new Status("0 %");
                     TreeItem<Projekte> leistungLP4 = new TreeItem<>(neueLeistung4);
                     newProjektItem.getChildren().add(leistungLP4);
                 }
                 if (cB_LP5.isSelected()) {
                     String leistung5 = cB_LP5.getText();
                     Projekte neueLeistung5 = new Projekte(leistung5, "", status);
-                    Status statusLP5 = new Status("0 %");
                     TreeItem<Projekte> leistungLP5 = new TreeItem<>(neueLeistung5);
                     newProjektItem.getChildren().add(leistungLP5);
                 }
                 if (cB_LP6.isSelected()) {
                     String leistung6 = cB_LP6.getText();
                     Projekte neueLeistung6 = new Projekte(leistung6, "", status);
-                    Status statusLP6 = new Status("0 %");
                     TreeItem<Projekte> leistungLP6 = new TreeItem<>(neueLeistung6);
                     newProjektItem.getChildren().add(leistungLP6);
                 }
@@ -292,29 +286,37 @@ public class ProjektErstellenController implements Initializable {
             e.printStackTrace();
         }
 
-        projekt_column.setCellValueFactory(new TreeItemPropertyValueFactory<Projekte, String>("CombinedValue"));
+        projekt_column.setCellValueFactory(new TreeItemPropertyValueFactory<>("CombinedValue"));
+        stand_column.setCellValueFactory(new TreeItemPropertyValueFactory<>("Status"));
 
         TreeItem<Projekte> mainProject = new TreeItem<>();
 
         for (Projekte data : vorhandeneProjekte) {
-
-            System.out.println("<" + data.getCombinedValue() + ">");
 
             String kombiValue = data.getCombinedValue().trim();
             if (kombiValue.isEmpty() || kombiValue.equals("null")) {
                 continue;
             }
 
-            if (!data.getCombinedValue().trim().equals("LP1")) {
-                System.out.println("Add MainProject: " + data.getCombinedValue());
+            if (!data.getCombinedValue().trim().equals("LP1") &&
+                    !data.getCombinedValue().trim().equals("LP2") &&
+                    !data.getCombinedValue().trim().equals("LP3") &&
+                    !data.getCombinedValue().trim().equals("LP4") &&
+                    !data.getCombinedValue().trim().equals("LP5") &&
+                    !data.getCombinedValue().trim().equals("LP6")) {
                 mainProject = new TreeItem<>(data);
                 rootItem.getChildren().add(mainProject);
-//                    continue;
-            } else {
+                continue;
+            } else if (data.getCombinedValue().trim().equals("LP1") ||
+                    data.getCombinedValue().trim().equals("LP2") ||
+                    data.getCombinedValue().trim().equals("LP3") ||
+                    data.getCombinedValue().trim().equals("LP4") ||
+                    data.getCombinedValue().trim().equals("LP5") ||
+                    data.getCombinedValue().trim().equals("LP6")) {
                 TreeItem<Projekte> subProject = new TreeItem<>(data);
                 mainProject.getChildren().add(subProject);
-                System.out.println("Add SubProject: " + data.getCombinedValue());
             }
+            mainProject.setExpanded(true);
 
 
         }

@@ -40,7 +40,7 @@ public class Projekte extends TreeItem<Projekte> {
     }
 
     public String getCombinedValue() {
-        return nummerProperty.get() + "\t" + nameProperty.get();
+        return nummerProperty.get() + "\t" + "\t" + nameProperty.get();
     }
 
 }
